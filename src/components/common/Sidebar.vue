@@ -40,86 +40,144 @@
                 items: [
                     {
                         icon: 'el-icon-lx-home',
-                        index: 'dashboard',
-                        title: '系统首页'
+                        index: 'project',
+                        title: '项目楼盘',
+                        subs: [
+		                    {
+		                        index: 'projectlist',
+		                        title: '列表'
+		                    },
+                            {
+                                index: 'projectadd',
+                                title: '添加'
+                            }
+                        ]
                     },
                     {
                         icon: 'el-icon-lx-cascades',
-                        index: 'table',
-                        title: '基础表格'
+                        index: 'layout',
+                        title: '户型',
+                        subs: [
+		                    {
+		                        index: 'houselayoutlist',
+		                        title: '列表'
+		                    },
+                            {
+                                index: 'houselayoutadd',
+                                title: '添加'
+                            }
+                        ]
                     },
                     {
-                        icon: 'el-icon-lx-copy',
-                        index: 'tabs',
-                        title: 'tab选项卡'
+                        icon: 'el-icon-lx-rank',
+                        index: 'house',
+                        title: '房源类型',
+                        subs: [
+                            {
+                        		icon: 'el-icon-lx-tag',
+                                index: 'type',
+                                title: '物业类型',
+		                        subs: [
+				                    {
+				                        index: 'housetypelist',
+				                        title: '列表'
+				                    },
+		                            {
+		                                index: 'housetypeadd',
+		                                title: '添加'
+		                            }
+		                        ]
+                            },
+                            {
+                        		icon: 'el-icon-lx-tag',
+                                index: 'fitment',
+                                title: '装修类型',
+		                        subs: [
+				                    {
+				                        index: 'housefitmentlist',
+				                        title: '列表'
+				                    },
+		                            {
+		                                index: 'housefitmentadd',
+		                                title: '添加'
+		                            }
+		                        ]
+                            },
+                            {
+                        		icon: 'el-icon-lx-tag',
+                                index: 'pright',
+                                title: '产权年限',
+		                        subs: [
+				                    {
+				                        index: 'houseprightlist',
+				                        title: '列表'
+				                    },
+		                            {
+		                                index: 'houseprightadd',
+		                                title: '添加'
+		                            }
+		                        ]
+                            },
+                            {
+                        		icon: 'el-icon-lx-tag',
+                                index: 'provider',
+                                title: '供应商',
+		                        subs: [
+				                    {
+				                        index: 'houseproviderlist',
+				                        title: '列表'
+				                    },
+		                            {
+		                                index: 'houseprovideradd',
+		                                title: '添加'
+		                            }
+		                        ]
+                            },
+                            {
+                        		icon: 'el-icon-lx-tag',
+                                index: 'area',
+                                title: '国家地区',
+		                        subs: [
+				                    {
+				                        index: 'housearealist',
+				                        title: '列表'
+				                    },
+		                            {
+		                                index: 'houseareaadd',
+		                                title: '添加'
+		                            }
+		                        ]
+                            },
+                        ]
                     },
                     {
                         icon: 'el-icon-lx-calendar',
-                        index: '3',
-                        title: '表单相关',
+                        index: 'reservation',
+                        title: '预约管理',
                         subs: [
-                            {
-                                index: 'form',
-                                title: '基本表单'
-                            },
-                            {
-                                index: '3-2',
-                                title: '三级菜单',
-                                subs: [
-                                    {
-                                        index: 'editor',
-                                        title: '富文本编辑器'
-                                    },
-                                    {
-                                        index: 'markdown',
-                                        title: 'markdown编辑器'
-                                    },
-                                ]
-                            },
-                            {
-                                index: 'upload',
-                                title: '文件上传'
-                            }
+		                    {
+		                        index: 'housereservationlist',
+		                        title: '用户预约'
+		                    }
                         ]
                     },
                     {
-                        icon: 'el-icon-lx-emoji',
-                        index: 'icon',
-                        title: '自定义图标'
-                    },
-                    {
-                        icon: 'el-icon-lx-favor',
-                        index: 'charts',
-                        title: 'schart图表'
-                    },
-                    {
-                        icon: 'el-icon-rank',
-                        index: '6',
-                        title: '拖拽组件',
+                        icon: 'el-icon-lx-copy',
+                        index: 'activity',
+                        title: '活动管理',
                         subs: [
+		                    {
+		                        index: 'houseactivitylist',
+		                        title: '列表'
+		                    },
                             {
-                                index: 'drag',
-                                title: '拖拽列表',
+                                index: 'houseactivityadd',
+                                title: '添加'
                             },
-                            {
-                                index: 'dialog',
-                                title: '拖拽弹框',
-                            }
-                        ]
-                    },
-                    {
-                        icon: 'el-icon-lx-warn',
-                        index: '7',
-                        title: '错误处理',
-                        subs: [
-                            {
-                                index: 'permission',
-                                title: '权限测试'
-                            },
-                            {
-                                index: '404',
-                                title: '404页面'
-                            }
+		                    {
+		                        index: 'housemyactivitylist',
+		                        title: '用户预约'
+		                    },
                         ]
                     }
                 ]
