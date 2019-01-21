@@ -140,16 +140,7 @@
                 return row.tag === value;
             },
             handleEdit(index, row) {
-                this.idx = index;
-                this.dbid = row.spId;
-                const item = this.tableData[index];
-                this.form = {
-                	spId: this.dbid,
-                    spName: item.pName,
-                    description: item.description,
-                    imgname: item.imgname
-                }
-                this.editVisible = true;
+                this.$router.push({path: '/projectmodify',query: {'pId': row.pId }});
             },
             handleDelete(index, row) {
                 this.idx = index;

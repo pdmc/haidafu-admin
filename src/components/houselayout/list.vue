@@ -18,11 +18,15 @@
 				        <img  :src="scope.row.picture1" alt="" style="width: 50px;height: 50px">
 				    </template>
                 </el-table-column>
-                <el-table-column prop="bedroomNum" label="室" width="100">
+                <el-table-column prop="bedroomNum" label="室" width="40">
                 </el-table-column>
-                <el-table-column prop="livingroomNum" label="厅" width="100">
+                <el-table-column prop="livingroomNum" label="厅" width="40">
                 </el-table-column>
-                <el-table-column prop="bathroomNum" label="卫" width="100">
+                <el-table-column prop="bathroomNum" label="卫" width="40">
+                </el-table-column>
+                <el-table-column prop="hlSquare" label="面积" width="60">
+                </el-table-column>
+                <el-table-column prop="minPrice" label="最低价" width="80">
                 </el-table-column>
                 <el-table-column prop="housetype__name" label="物业类型" width="100">
                 </el-table-column>
@@ -149,16 +153,7 @@
                 return row.tag === value;
             },
             handleEdit(index, row) {
-                this.idx = index;
-                this.dbid = row.spId;
-                const item = this.tableData[index];
-                this.form = {
-                	spId: this.dbid,
-                    spName: item.spName,
-                    description: item.description,
-                    imgname: item.imgname
-                }
-                this.editVisible = true;
+                this.$router.push({path: '/houselayoutmodify',query: {'hlId': row.hlId }});
             },
             handleDelete(index, row) {
                 this.idx = index;

@@ -31,6 +31,11 @@ export default new Router({
                     meta: { title: '楼盘添加' }
                 },
                 {
+                    path: '/projectmodify',
+                    component: resolve => require(['../components/project/modify.vue'], resolve),
+                    meta: { title: '楼盘修改' }
+                },
+                {
                     path: '/houselayoutlist',
                     component: resolve => require(['../components/houselayout/list.vue'], resolve),
                     meta: { title: '户型列表' }
@@ -39,6 +44,11 @@ export default new Router({
                     path: '/houselayoutadd',
                     component: resolve => require(['../components/houselayout/add.vue'], resolve),
                     meta: { title: '户型添加' }
+                },
+                {
+                    path: '/houselayoutmodify',
+                    component: resolve => require(['../components/houselayout/modify.vue'], resolve),
+                    meta: { title: '户型修改' }
                 },
                 {
                     path: 'housetypelist',
