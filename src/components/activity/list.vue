@@ -2,8 +2,7 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item>房源类型</el-breadcrumb-item>
-                <el-breadcrumb-item>装修类型</el-breadcrumb-item>
+                <el-breadcrumb-item>活动管理</el-breadcrumb-item>
                 <el-breadcrumb-item>列表</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -13,11 +12,16 @@
             </div>
             <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="name" label="名称" sortable width="150">
+                <el-table-column prop="subject" label="活动主题" sortable width="150">
                 </el-table-column>
-                 <el-table-column prop="status" label="状态" width="150">
+                 <el-table-column prop="address" label="地址" width="150">
                 </el-table-column>
-               <el-table-column prop="operTime" label="添加日期" sortable width="150">
+               <el-table-column prop="startTime" label="时间" sortable width="150">
+                </el-table-column>
+                <el-table-column prop="imgurl" label="活动图片" width="100">
+				    <template slot-scope="scope">
+				        <img  :src="scope.row.imgurl" alt="" style="width: 50px;height: 50px">
+				    </template>
                 </el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
@@ -34,12 +38,22 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="50px">
-                <el-form-item label="名称">
-                    <el-input v-model="form.name"></el-input>
+            <el-form ref="form" :model="form" label-width="100px">
+                <el-form-item label="活动主题">
+                    <el-input v-model="form.subject"></el-input>
                 </el-form-item>
-                <el-form-item label="状态">
-                    <el-switch v-model="form.status"></el-switch>
+                <el-form-item label="地址">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="时间">
+                    <el-date-picker
+				      v-model="form.startTime"
+				      type="datetime"
+				      placeholder="选择日期时间">
+				    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="图片名称">
+                    <el-input v-model="form.imgurl"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -88,11 +102,6 @@
         computed: {
             data() {
                 return this.tableData.filter((d) => {
-                	if(!isNaN(d.status) && d.status == 1){
-                		d.status = "禁用";
-                	} else if(!isNaN(d.status) && d.status == 0){
-                		d.status = "启用";
-                	}
                     return d;
                     /*let is_del = false;
                     for (let i = 0; i < this.del_list.length; i++) {
@@ -124,7 +133,7 @@
                 /*if (process.env.NODE_ENV === 'development') {
                     this.url = '/ms/table/list';
                 };*/
-                this.$axios.get('https://bhost.pk4yo.com/fitments', {
+                this.$axios.get('https://bhost.pk4yo.com/activity', {
                     page: this.cur_page
                 }).then((res) => {
                 	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -143,22 +152,23 @@
             },
             handleEdit(index, row) {
                 this.idx = index;
-                this.dbid = row.ftId;
+                this.dbid = row.actId;
                 const item = this.tableData[index];
                 this.form = {
-                	ftId: this.dbid,
-                    name: item.name,
-                    status: item.status=="启用"?true:false
+                	actId: this.dbid,
+                    subject: item.subject,
+                    address: item.address,
+                    imgurl: item.imgurl
                 }
                 this.editVisible = true;
             },
             handleDelete(index, row) {
                 this.idx = index;
-                this.dbid = row.ftId;
+                this.dbid = row.actId;
                 this.delVisible = true;
             },
             toAdd() {
-            	this.$router.push({path: '/housefitmentadd'});
+            	this.$router.push({path: '/activityadd'});
             },
             delAll() {
                 const length = this.multipleSelection.length;
@@ -176,9 +186,10 @@
             // 保存编辑
             saveEdit() {
             	var _this = this;
-            	if(this.form.status) this.form.status = 1;
-            	else this.form.status = 0;
-            	this.$axios.get('https://bhost.pk4yo.com/fitments/update', {
+            	var d = new Date(this.form.startTime);
+        		var month = d.getMonth() + 1;
+        		this.form.startTime = d.getFullYear()+'-'+month+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            	this.$axios.get('https://bhost.pk4yo.com/activity/update', {
                     params: this.form
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
@@ -190,8 +201,8 @@
             },
             // 确定删除
             deleteRow(){
-            	this.$axios.get('https://bhost.pk4yo.com/fitments/delete', {
-                    params: { ftId: this.dbid }
+            	this.$axios.get('https://bhost.pk4yo.com/activity/delete', {
+                    params: { actId: this.dbid }
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
                 		this.tableData.splice(this.idx, 1);
