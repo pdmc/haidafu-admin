@@ -92,7 +92,7 @@ export default new Router({
                 },
                 {
                     path: '/reservationlist',
-                    component: resolve => require(['../components/reservation/list.vue'], resolve),
+                    component: resolve => require(['../components/reservation/mylist.vue'], resolve),
                     meta: { title: '预约看房列表' }
                 },
                 {
@@ -112,7 +112,7 @@ export default new Router({
                 },
                 {
                     path: '/hongbaolist',
-                    component: resolve => require(['../components/hongbao/list.vue'], resolve),
+                    component: resolve => require(['../components/hongbao/mylist.vue'], resolve),
                     meta: { title: '红包列表' }
                 },
                 {
