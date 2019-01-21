@@ -22,7 +22,9 @@
     </div>
 </template>
 
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
 <script>
+	import crypto from 'crypto';
     export default {
         data: function(){
             return {
@@ -42,15 +44,23 @@
         },
         methods: {
             submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        localStorage.setItem('ms_username',this.ruleForm.username);
-                        this.$router.push('/');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
+	            var pass;
+	            var md5 = crypto.createHash("md5");
+	            md5.update(this.ruleForm.password);
+	            pass = md5.digest('hex');
+            	if(pass.substr(8,16) == 'cb93d69753ef5551'){
+	                this.$refs[formName].validate((valid) => {
+	                    if (valid) {
+	                        localStorage.setItem('ms_username',this.ruleForm.username);
+	                        this.$router.push('/');
+	                    } else {
+	                        console.log('error submit!!');
+	                        return false;
+	                    }
+	                });
+                }else{
+                	this.$message.error("密码错误！");
+                }
             }
         }
     }
