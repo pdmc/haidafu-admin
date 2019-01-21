@@ -14,7 +14,7 @@
 						    <el-option
 						      v-for="item in projects"
 						      :key="item.pId"
-						      :label="item.name"
+						      :label="item.pName"
 						      :value="item.pId">
 						    </el-option>
 					    </el-select>
@@ -60,12 +60,12 @@
                         <el-input v-model="form.maxPrice"></el-input>
                     </el-form-item>
                     <el-form-item label="装修类型">
-                        <el-select v-model="form.typeId" placeholder="请选择装修">
+                        <el-select v-model="form.fitmentId" placeholder="请选择装修">
 						    <el-option
-						      v-for="item in types"
-						      :key="item.typeId"
+						      v-for="item in fitments"
+						      :key="item.ftId"
 						      :label="item.name"
-						      :value="item.typeId">
+						      :value="item.ftId">
 						    </el-option>
 					    </el-select>
                     </el-form-item>
@@ -84,7 +84,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="图片名称">
-                        <el-input v-model="form.picture1"></el-input>
+                        <el-input v-model="form.picture1name"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">提交</el-button>

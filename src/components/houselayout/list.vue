@@ -2,8 +2,7 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item>房源类型</el-breadcrumb-item>
-                <el-breadcrumb-item>供应商</el-breadcrumb-item>
+                <el-breadcrumb-item>户型</el-breadcrumb-item>
                 <el-breadcrumb-item>列表</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -12,15 +11,22 @@
             	<el-button type="primary" icon="delete" class="handle-del mr10" @click="toAdd">创建</el-button>
             </div>
             <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="spName" label="名称" sortable width="150">
+                <el-table-column prop="pkproject__pName" label="楼盘名称" width="150">
                 </el-table-column>
-                <el-table-column prop="descshort" label="介绍" width="600">
-                </el-table-column>
-                <el-table-column prop="form.imgurl" label="图片" width="120">
+                <el-table-column prop="picture1" label="缩略图" width="100">
 				    <template slot-scope="scope">
-				        <img  :src="scope.row.imgurl" alt="" style="width: 50px;height: 50px">
+				        <img  :src="scope.row.picture1" alt="" style="width: 50px;height: 50px">
 				    </template>
+                </el-table-column>
+                <el-table-column prop="bedroomNum" label="室" width="100">
+                </el-table-column>
+                <el-table-column prop="livingroomNum" label="厅" width="100">
+                </el-table-column>
+                <el-table-column prop="bathroomNum" label="卫" width="100">
+                </el-table-column>
+                <el-table-column prop="housetype__name" label="物业类型" width="100">
+                </el-table-column>
+                <el-table-column prop="fitmenttype__name" label="装修类型" width="100">
                 </el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
@@ -94,10 +100,7 @@
         computed: {
             data() {
                 return this.tableData.filter((d) => {
-                	//if(d.description.length > 50) d.descshort = d.description.substr(0,50) + '...';
-                	if(d.description.length > 50) d.descshort = d.description;
-                	else d.descshort = d.description;
-                    return d;
+                	return d;
                     /*let is_del = false;
                     for (let i = 0; i < this.del_list.length; i++) {
                         if (d.name === this.del_list[i].name) {
@@ -128,7 +131,7 @@
                 /*if (process.env.NODE_ENV === 'development') {
                     this.url = '/ms/table/list';
                 };*/
-                this.$axios.get('https://bhost.pk4yo.com/providers', {
+                this.$axios.get('https://bhost.pk4yo.com/layouts', {
                     page: this.cur_page
                 }).then((res) => {
                 	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -159,11 +162,11 @@
             },
             handleDelete(index, row) {
                 this.idx = index;
-                this.dbid = row.spId;
+                this.dbid = row.hlId;
                 this.delVisible = true;
             },
             toAdd() {
-            	this.$router.push({path: '/houseprovideradd'});
+            	this.$router.push({path: '/houselayoutadd'});
             },
             delAll() {
                 const length = this.multipleSelection.length;
@@ -183,7 +186,7 @@
             	var _this = this;
             	if(this.form.status) this.form.status = 1;
             	else this.form.status = 0;
-            	this.$axios.get('https://bhost.pk4yo.com/providers/update', {
+            	this.$axios.get('https://bhost.pk4yo.com/layouts/update', {
                     params: this.form
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
@@ -195,7 +198,7 @@
             },
             // 确定删除
             deleteRow(){
-            	this.$axios.get('https://bhost.pk4yo.com/providers/delete', {
+            	this.$axios.get('https://bhost.pk4yo.com/layouts/delete', {
                     params: { spId: this.dbid }
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
