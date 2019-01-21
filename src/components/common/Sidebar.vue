@@ -156,8 +156,16 @@
                         title: '预约管理',
                         subs: [
 		                    {
-		                        index: 'housereservationlist',
-		                        title: '用户预约'
+		                        index: 'myactivitylist',
+		                        title: '预约活动'
+		                    },
+		                    {
+		                        index: 'reservationlist',
+		                        title: '预约看房'
+		                    },
+		                    {
+		                        index: 'hongbaolist',
+		                        title: '用户红包'
 		                    }
                         ]
                     },
@@ -167,17 +175,13 @@
                         title: '活动管理',
                         subs: [
 		                    {
-		                        index: 'houseactivitylist',
+		                        index: 'activitylist',
 		                        title: '列表'
 		                    },
                             {
-                                index: 'houseactivityadd',
+                                index: 'activityadd',
                                 title: '添加'
-                            },
-		                    {
-		                        index: 'housemyactivitylist',
-		                        title: '用户预约'
-		                    },
+                            }
                         ]
                     }
                 ]
