@@ -2,27 +2,24 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item>房源类型</el-breadcrumb-item>
-                <el-breadcrumb-item>装修类型</el-breadcrumb-item>
-                <el-breadcrumb-item>列表</el-breadcrumb-item>
+                <el-breadcrumb-item>预约管理</el-breadcrumb-item>
+                <el-breadcrumb-item>预约看房</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
-            <div class="handle-box">
-            	<el-button type="primary" icon="delete" class="handle-del mr10" @click="toAdd">创建</el-button>
-            </div>
             <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="name" label="名称" sortable width="150">
+                <el-table-column prop="pkproject__pName" label="楼盘名称" sortable width="200">
                 </el-table-column>
-                 <el-table-column prop="status" label="状态" width="150">
+                <el-table-column prop="pkuser__nickName" label="用户昵称" sortable width="150">
                 </el-table-column>
-               <el-table-column prop="operTime" label="添加日期" sortable width="150">
+                <el-table-column prop="trueName" label="真实姓名" sortable width="150">
+                </el-table-column>
+                <el-table-column prop="phone" label="电话" sortable width="150">
                 </el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)" disabled="true">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -31,22 +28,6 @@
                 </el-pagination>
             </div>
         </div>
-
-        <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="50px">
-                <el-form-item label="名称">
-                    <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="状态">
-                    <el-switch v-model="form.status"></el-switch>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="editVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveEdit">确 定</el-button>
-            </span>
-        </el-dialog>
 
         <!-- 删除提示框 -->
         <el-dialog title="提示" :visible.sync="delVisible" width="300px" center>
@@ -88,11 +69,6 @@
         computed: {
             data() {
                 return this.tableData.filter((d) => {
-                	if(!isNaN(d.status) && d.status == 1){
-                		d.status = "禁用";
-                	} else if(!isNaN(d.status) && d.status == 0){
-                		d.status = "启用";
-                	}
                     return d;
                     /*let is_del = false;
                     for (let i = 0; i < this.del_list.length; i++) {
@@ -124,7 +100,7 @@
                 /*if (process.env.NODE_ENV === 'development') {
                     this.url = '/ms/table/list';
                 };*/
-                this.$axios.get('https://bhost.pk4yo.com/fitments', {
+                this.$axios.get('https://bhost.pk4yo.com/reservations', {
                     page: this.cur_page
                 }).then((res) => {
                 	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -146,7 +122,7 @@
                 this.dbid = row.ftId;
                 const item = this.tableData[index];
                 this.form = {
-                	ftId: this.dbid,
+                	rId: this.dbid,
                     name: item.name,
                     status: item.status=="启用"?true:false
                 }
@@ -154,11 +130,8 @@
             },
             handleDelete(index, row) {
                 this.idx = index;
-                this.dbid = row.ftId;
+                this.dbid = row.rId;
                 this.delVisible = true;
-            },
-            toAdd() {
-            	this.$router.push({path: '/housefitmentadd'});
             },
             delAll() {
                 const length = this.multipleSelection.length;
@@ -178,7 +151,7 @@
             	var _this = this;
             	if(this.form.status) this.form.status = 1;
             	else this.form.status = 0;
-            	this.$axios.get('https://bhost.pk4yo.com/fitments/update', {
+            	this.$axios.get('https://bhost.pk4yo.com/reservations/update', {
                     params: this.form
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
@@ -190,8 +163,8 @@
             },
             // 确定删除
             deleteRow(){
-            	this.$axios.get('https://bhost.pk4yo.com/fitments/delete', {
-                    params: { ftId: this.dbid }
+            	this.$axios.get('https://bhost.pk4yo.com/reservations/delete', {
+                    params: { rId: this.dbid }
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
                 		this.tableData.splice(this.idx, 1);
