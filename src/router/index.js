@@ -131,6 +131,16 @@ export default new Router({
                     meta: { title: '红包添加' }
                 },
                 {
+                    path: '/questionlist',
+                    component: resolve => require(['../components/question/list.vue'], resolve),
+                    meta: { title: '问题列表' }
+                },
+                {
+                    path: '/answerlist',
+                    component: resolve => require(['../components/question/anslist.vue'], resolve),
+                    meta: { title: '回答列表' }
+                },
+                {
                     path: '/icon',
                     component: resolve => require(['../components/page/Icon.vue'], resolve),
                     meta: { title: '自定义图标' }

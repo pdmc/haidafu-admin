@@ -175,7 +175,7 @@
                         ]
                     },
                     {
-                        icon: 'el-icon-lx-copy',
+                        icon: 'el-icon-time',
                         index: 'activity',
                         title: '活动管理',
                         subs: [
@@ -187,6 +187,21 @@
                                 index: 'activityadd',
                                 title: '添加'
                             }
+                        ]
+                    },
+                    {
+                        icon: 'el-icon-tickets',
+                        index: 'question',
+                        title: '问答管理',
+                        subs: [
+		                    {
+		                        index: 'questionlist',
+		                        title: '问题列表'
+		                    },
+		                    {
+		                        index: 'answerlist',
+		                        title: '回答列表'
+		                    }
                         ]
                     }
                 ]
