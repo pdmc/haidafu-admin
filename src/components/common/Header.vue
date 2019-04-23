@@ -48,7 +48,7 @@
                 collapse: false,
                 fullscreen: false,
                 name: 'pk4yo',
-                message: 2
+                message: 0 
             }
         },
         computed:{
