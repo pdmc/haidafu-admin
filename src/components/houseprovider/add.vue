@@ -62,7 +62,7 @@
             onSubmit() {
             	var _this = this;
                 //this.$message.success('提交成功！');
-                this.$axios.get('https://bhost.pk4yo.com/providers/add', {
+                this.$axios.get('/providers/add', {
 				    params: this.form
 				})
 				.then(function (res) {

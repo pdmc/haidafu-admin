@@ -124,7 +124,7 @@
                 /*if (process.env.NODE_ENV === 'development') {
                     this.url = '/ms/table/list';
                 };*/
-                this.$axios.get('https://bhost.pk4yo.com/fitments', {
+                this.$axios.get('/fitments', {
                     page: this.cur_page
                 }).then((res) => {
                 	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -178,7 +178,7 @@
             	var _this = this;
             	if(this.form.status) this.form.status = 1;
             	else this.form.status = 0;
-            	this.$axios.get('https://bhost.pk4yo.com/fitments/update', {
+            	this.$axios.get('/fitments/update', {
                     params: this.form
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
@@ -190,7 +190,7 @@
             },
             // 确定删除
             deleteRow(){
-            	this.$axios.get('https://bhost.pk4yo.com/fitments/delete', {
+            	this.$axios.get('/fitments/delete', {
                     params: { ftId: this.dbid }
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){

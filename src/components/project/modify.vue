@@ -79,26 +79,35 @@
                     <el-form-item label="规划面积(平米)">
                         <el-input v-model="form.totalSquare"></el-input>
                     </el-form-item>
+                    <el-form-item label="可售户数">
+                        <el-input v-model="form.availAmount"></el-input>
+                    </el-form-item>					
                     <el-form-item label="总户数/总房数">
                         <el-input v-model="form.totalAmount"></el-input>
                     </el-form-item>
                     <el-form-item label="预计出租年收益(元)">
                         <el-input v-model="form.predictYearRent"></el-input>
                     </el-form-item>
+                    <el-form-item label="首付比例(100以内数字)">
+                        <el-input v-model="form.firstpayRatio"></el-input>
+                    </el-form-item>
+                    <el-form-item label="近12个月涨幅(100以内数字)">
+                        <el-input v-model="form.recent12AscRatio"></el-input>
+                    </el-form-item>
                     <el-form-item label="缩略图">
-                        <el-input v-model="form.thumbnail"></el-input>
+                        <el-input v-model="form.thumbname"></el-input>
                     </el-form-item>
                     <el-form-item label="图片名称-1">
-                        <el-input v-model="form.picture1"></el-input>
+                        <el-input v-model="form.picture1name"></el-input>
                     </el-form-item>
                     <el-form-item label="图片名称-2">
-                        <el-input v-model="form.picture2"></el-input>
+                        <el-input v-model="form.picture2name"></el-input>
                     </el-form-item>
                     <el-form-item label="图片名称-3">
-                        <el-input v-model="form.picture3"></el-input>
+                        <el-input v-model="form.picture3name"></el-input>
                     </el-form-item>
                     <el-form-item label="图片名称-4">
-                        <el-input v-model="form.picture4"></el-input>
+                        <el-input v-model="form.picture4name"></el-input>
                     </el-form-item>
                     <el-form-item label="详细介绍">
                         <el-input type="textarea" rows="5" v-model="form.description"></el-input>
@@ -108,6 +117,12 @@
                             <el-option key="0" label="不加" value="0"></el-option>
                             <el-option key="1" label="加" value="1"></el-option>
                         </el-select>
+                    </el-form-item>
+                    <el-form-item label="联系人电话">
+                        <el-input v-model="form.agentPhone"></el-input>
+                    </el-form-item>
+                    <el-form-item label="联系人二维码图片">
+                        <el-input v-model="form.agentUrl"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -139,16 +154,21 @@
         	var _this = this;
         	
         	var pid = this.$route.query.pId;
-    		this.$axios.get('https://bhost.pk4yo.com/projects/getbyid?pId='+pid, {
+    		this.$axios.get('/projects/getbyid?pId='+pid, {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
                 	_this.form = res.data.data[0];
                 	_this.form.pId = pid;
+                	_this.form.thumbname = _this.form.thumbnail.substr(_this.form.thumbnail.lastIndexOf("/")+1);
+                	_this.form.picture1name = _this.form.picture1.substr(_this.form.picture1.lastIndexOf("/")+1);
+                	_this.form.picture2name  = _this.form.picture2.substr(_this.form.picture2.lastIndexOf("/")+1);
+                	_this.form.picture3name  = _this.form.picture3.substr(_this.form.picture3.lastIndexOf("/")+1);
+                	_this.form.picture4name  = _this.form.picture4.substr(_this.form.picture4.lastIndexOf("/")+1);
                 	_this.address = [_this.form.countryId,_this.form.provinceId,_this.form.cityId];
                 } 
             });
-    		this.$axios.get('https://bhost.pk4yo.com/areas', {
+    		this.$axios.get('/areas', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -186,14 +206,14 @@
                 	_this.projects = res.data.data;
                 } 
             });
-    		this.$axios.get('https://bhost.pk4yo.com/providers', {
+    		this.$axios.get('/providers', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
                 	_this.providers = res.data.data;
                 } 
             });
-    		this.$axios.get('https://bhost.pk4yo.com/prights', {
+    		this.$axios.get('/prights', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -214,7 +234,7 @@
             onSubmit() {
             	var _this = this;
                 //this.$message.success('提交成功！');
-                this.$axios.get('https://bhost.pk4yo.com/projects/update', {
+                this.$axios.get('/projects/update', {
 				    params: this.form
 				})
 				.then(function (res) {

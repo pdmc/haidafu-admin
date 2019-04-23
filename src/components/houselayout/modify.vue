@@ -114,7 +114,7 @@
         	var _this = this;
 
         	var hlid = this.$route.query.hlId;
-    		this.$axios.get('https://bhost.pk4yo.com/layouts/getbyid?hlId='+hlid, {
+    		this.$axios.get('/layouts/getbyid?hlId='+hlid, {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -123,21 +123,21 @@
                 	_this.form.hlId = hlid;
                 } 
             });
-    		this.$axios.get('https://bhost.pk4yo.com/projects', {
+    		this.$axios.get('/projects', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
                 	_this.projects = res.data.data;
                 } 
             });
-    		this.$axios.get('https://bhost.pk4yo.com/types', {
+    		this.$axios.get('/types', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
                 	_this.types = res.data.data;
                 } 
             });
-    		this.$axios.get('https://bhost.pk4yo.com/fitments', {
+    		this.$axios.get('/fitments', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -153,7 +153,7 @@
             onSubmit() {
             	var _this = this;
                 //this.$message.success('提交成功！');
-                this.$axios.get('https://bhost.pk4yo.com/layouts/update', {
+                this.$axios.get('/layouts/update', {
 				    params: this.form
 				})
 				.then(function (res) {

@@ -91,7 +91,7 @@
         },
         methods: {
             getData() {
-                this.$axios.get('https://bhost.pk4yo.com/areas/getbycond?level=1', {
+                this.$axios.get('/areas/getbycond?level=1', {
                     page: this.cur_page
                 }).then((res) => {
                 	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -126,7 +126,7 @@
         			this.$message.error('国家ID错误，请联系管理员！');	
         			return;
         		}
-        		this.$axios.get('https://bhost.pk4yo.com/areas/getbycond?parentId='+this.countryId, {
+        		this.$axios.get('/areas/getbycond?parentId='+this.countryId, {
                     page: this.cur_page
                 }).then((res) => {
                 	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -144,7 +144,7 @@
         			this.$message.error('省份ID错误，请联系管理员！');	
         			return;
         		}
-        		this.$axios.get('https://bhost.pk4yo.com/areas/getbycond?parentId='+this.provinceId, {
+        		this.$axios.get('/areas/getbycond?parentId='+this.provinceId, {
                     page: this.cur_page
                 }).then((res) => {
                 	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -162,7 +162,7 @@
             onSubmit() {
             	var _this = this;
                 //this.$message.success('提交成功！');
-                this.$axios.get('https://bhost.pk4yo.com/areas/add', {
+                this.$axios.get('/areas/add', {
 				    params: this.form
 				})
 				.then(function (res) {

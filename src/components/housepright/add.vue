@@ -42,7 +42,7 @@
             onSubmit() {
             	var _this = this;
                 //this.$message.success('提交成功！');
-                axios.get('https://bhost.pk4yo.com/prights/add', {
+                axios.get('/prights/add', {
 				    params: this.form
 				})
 				.then(function (res) {

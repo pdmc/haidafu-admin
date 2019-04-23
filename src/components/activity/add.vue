@@ -64,7 +64,7 @@
         		var month = d.getMonth() + 1;
         		this.form.startTime = d.getFullYear()+'-'+month+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
                 //this.$message.success('提交成功！');
-                this.$axios.get('https://bhost.pk4yo.com/activity/add', {
+                this.$axios.get('/activity/add', {
 				    params: this.form
 				})
 				.then(function (res) {

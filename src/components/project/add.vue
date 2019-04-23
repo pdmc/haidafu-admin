@@ -79,11 +79,20 @@
                     <el-form-item label="规划面积(平米)">
                         <el-input v-model="form.totalSquare"></el-input>
                     </el-form-item>
+                    <el-form-item label="可售户数">
+                        <el-input v-model="form.availAmount"></el-input>
+                    </el-form-item>
                     <el-form-item label="总户数/总房数">
                         <el-input v-model="form.totalAmount"></el-input>
                     </el-form-item>
                     <el-form-item label="预计出租年收益(元)">
                         <el-input v-model="form.predictYearRent"></el-input>
+                    </el-form-item>
+                    <el-form-item label="首付比例(100以内数字)">
+                        <el-input v-model="form.firstpayRatio"></el-input>
+                    </el-form-item>
+                    <el-form-item label="近12个月涨幅(100以内数字)">
+                        <el-input v-model="form.recent12AscRatio"></el-input>
                     </el-form-item>
                     <el-form-item label="缩略图">
                         <el-input v-model="form.thumbname"></el-input>
@@ -108,6 +117,12 @@
                             <el-option key="0" label="不加" value="0"></el-option>
                             <el-option key="1" label="加" value="1"></el-option>
                         </el-select>
+                    </el-form-item>
+                    <el-form-item label="联系人电话">
+                        <el-input v-model="form.agentPhone"></el-input>
+                    </el-form-item>
+                    <el-form-item label="联系人二维码图片">
+                        <el-input v-model="form.agentUrl"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -137,7 +152,7 @@
         created() {
         	var _this = this;
         	//console.log(this.$appconfig);
-    		this.$axios.get('https://bhost.pk4yo.com/areas', {
+    		this.$axios.get('/areas', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -175,14 +190,14 @@
                 	_this.projects = res.data.data;
                 } 
             });
-    		this.$axios.get('https://bhost.pk4yo.com/providers', {
+    		this.$axios.get('/providers', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
                 	_this.providers = res.data.data;
                 } 
             });
-    		this.$axios.get('https://bhost.pk4yo.com/prights', {
+    		this.$axios.get('/prights', {
                 page: this.cur_page
             }).then((res) => {
             	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -203,7 +218,7 @@
             onSubmit() {
             	var _this = this;
                 //this.$message.success('提交成功！');
-                this.$axios.get('https://bhost.pk4yo.com/projects/add', {
+                this.$axios.get('/projects/add', {
 				    params: this.form
 				})
 				.then(function (res) {

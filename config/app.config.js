@@ -1,4 +1,4 @@
 module.exports = {
-    baseUrl: 'https://bhost.pk4yo.com',
+    baseUrl: 'https://bhost.dev.pk4yo.com',
     aaa: 'aaa'
 }

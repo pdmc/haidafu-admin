@@ -69,6 +69,11 @@
                         ]
                     },
                     {
+                        icon: 'el-icon-lx-calendar',
+                        index: 'upload',
+                        title: '图片',
+                    },
+                    {
                         icon: 'el-icon-lx-rank',
                         index: 'house',
                         title: '房源类型',

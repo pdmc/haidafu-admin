@@ -13,15 +13,15 @@
             </div>
             <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="parentId" label="所属区域" sortable width="150">
+                <el-table-column prop="parentName" label="所属区域" sortable width="150">
                 </el-table-column>
                 <el-table-column prop="name" label="名称" sortable width="150">
                 </el-table-column>
-                 <el-table-column prop="level" label="等级" width="150">
+                 <el-table-column prop="levelName" label="等级" width="150">
                 </el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
-                        <!--el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button-->
+                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -38,9 +38,9 @@
                 <el-form-item label="名称">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="状态">
+                <!--el-form-item label="状态">
                     <el-switch v-model="form.status"></el-switch>
-                </el-form-item>
+                </el-form-item-->
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
@@ -89,20 +89,20 @@
             data() {
                 return this.tableData.filter((d) => {
                 	if(!isNaN(d.level) && d.level == 1){
-                		d.level = "国家";
+                		d.levelName = "国家";
                 	} else if(!isNaN(d.level) && d.level == 2){
-                		d.level = "省份";
+                		d.levelName = "省份";
                 	} else if(!isNaN(d.level) && d.level == 3){
-                		d.level = "城市";
+                		d.levelName = "城市";
                 	}
                 	if(d.parentId != 0){
                 		this.tableData.forEach(function(v,i,arr){
                 			if(v.addrId == d.parentId){
-                				d.parentId = v.name;
+                				d.parentName = v.name;
                 			}
                 		});
                 	}else{
-                		d.parentId = "无";
+                		d.parentName = "无";
                 	}
                     return d;
                     /*let is_del = false;
@@ -135,7 +135,7 @@
                 /*if (process.env.NODE_ENV === 'development') {
                     this.url = '/ms/table/list';
                 };*/
-                this.$axios.get('https://bhost.pk4yo.com/areas', {
+                this.$axios.get('/areas', {
                     page: this.cur_page
                 }).then((res) => {
                 	if(res.status == 200 && res.data.data && res.data.data.length > 0){
@@ -159,7 +159,9 @@
                 this.form = {
                 	addrId: this.dbid,
                     name: item.name,
-                    status: item.status=="启用"?true:false
+					parentName: item.parentName,
+					levelName: item.levelName
+                    //status: item.status=="启用"?true:false
                 }
                 this.editVisible = true;
             },
@@ -187,9 +189,7 @@
             // 保存编辑
             saveEdit() {
             	var _this = this;
-            	if(this.form.status) this.form.status = 0;
-            	else this.form.status = 1;
-            	this.$axios.get('https://bhost.pk4yo.com/areas/update', {
+            	this.$axios.get('/areas/update', {
                     params: this.form
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
@@ -201,7 +201,7 @@
             },
             // 确定删除
             deleteRow(){
-            	this.$axios.get('https://bhost.pk4yo.com/areas/delete', {
+            	this.$axios.get('/areas/delete', {
                     params: { addrId: this.dbid }
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){

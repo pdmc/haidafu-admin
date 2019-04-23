@@ -45,7 +45,7 @@
             onSubmit() {
             	var _this = this;
                 //this.$message.success('提交成功！');
-                this.$axios.get('https://bhost.pk4yo.com/fitments/add', {
+                this.$axios.get('/fitments/add', {
 				    params: this.form
 				})
 				.then(function (res) {
