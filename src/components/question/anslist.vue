@@ -169,13 +169,14 @@
                 this.multipleSelection = val;
             },
             handlePass(index, row) {
-				//console.log(row);
-				//console.log(this.tableData[index]);
+				console.log(row);
+				console.log(this.tableData[index]);
 				if(row.state == 1)
 					return;
             	var _this = this;
                 //const item = this.tableData[index];
 				var ansNum = row.question__ansNum;
+				console.log(ansNum);
 				var qform = {};
 				if(row.state == 0 || row.state == 2)
 					ansNum += 1;
@@ -208,10 +209,13 @@
                 });
             },
             handleUnpass(index, row) {
+				console.log(row);
+				console.log(this.tableData[index]);
 				if(row.state == 2)
 					return;
             	var _this = this;
 				var ansNum = row.question__ansNum;
+				console.log(ansNum);
 				var qform = {};
 				if(row.state == 1)
 					ansNum -= 1;
