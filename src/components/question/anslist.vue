@@ -192,6 +192,7 @@
 						_this.tableData[index].state = 1;
 						_this.tableData[index].stateName = '通过';
 		                _this.editVisible = false;
+						console.log('change answer state -> 1');
 						qform = {
 							qId: row.qId,
 							ansNum: ansNum
@@ -203,6 +204,7 @@
 		        		        //_this.$set(_this.tableData, _this.idx, _this.form);
 								_this.tableData[index].question__ansNum = ansNum;
 		        		        _this.$message.success('修改成功');
+								console.log('change question ansNum -> ' + ansNum);
                 		    }
                 		})
                     }
