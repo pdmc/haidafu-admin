@@ -169,8 +169,16 @@
                 this.multipleSelection = val;
             },
             handlePass(index, row) {
+				//console.log(row);
+				//console.log(this.tableData[index]);
+				if(row.state == 1)
+					return;
             	var _this = this;
                 //const item = this.tableData[index];
+				var ansNum = row.question__ansNum;
+				var qform = {};
+				if(row.state == 0 || row.state == 2)
+					ansNum += 1;
                 this.form = {
                 	anId: row.anId,
                     state: 1
@@ -183,18 +191,35 @@
 						_this.tableData[index].state = 1;
 						_this.tableData[index].stateName = '通过';
 		                _this.editVisible = false;
-		                _this.$message.success('修改成功');
+						qform = {
+							qId: row.qId,
+							ansNum: ansNum
+						};
+            			_this.$axios.get('/question/update', {
+                		    params: qform
+                		}).then((res) => {
+                			if(res.status == 200 && res.data.code == 0){
+		        		        //_this.$set(_this.tableData, _this.idx, _this.form);
+								_this.tableData[index].ansNum = ansNum;
+		        		        _this.$message.success('修改成功');
+                		    }
+                		})
                     }
-                })
+                });
             },
             handleUnpass(index, row) {
+				if(row.state == 2)
+					return;
             	var _this = this;
-                //const item = this.tableData[index];
+				var ansNum = row.question__ansNum;
+				var qform = {};
+				if(row.state == 1)
+					ansNum -= 1;
                 this.form = {
                 	anId: row.anId,
                     state: 2 
 				};
-            	this.$axios.get('/question/update', {
+            	this.$axios.get('/answer/update', {
                     params: this.form
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
@@ -202,7 +227,19 @@
 						_this.tableData[index].state = 2;
 						_this.tableData[index].stateName = '未通过';
 		                _this.editVisible = false;
-		                _this.$message.success('修改成功');
+						qform = {
+							qId: row.qId,
+							ansNum: ansNum
+						};
+            			_this.$axios.get('/question/update', {
+                		    params: qform
+                		}).then((res) => {
+                			if(res.status == 200 && res.data.code == 0){
+		        		        //_this.$set(_this.tableData, _this.idx, _this.form);
+								_this.tableData[index].ansNum = ansNum;
+		        		        _this.$message.success('修改成功');
+                		    }
+                		})
                     }
                 })
             },
