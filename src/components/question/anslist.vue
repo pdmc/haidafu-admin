@@ -169,14 +169,14 @@
                 this.multipleSelection = val;
             },
             handlePass(index, row) {
-				console.log(row);
-				console.log(this.tableData[index]);
+				//console.log(row);
+				//console.log(this.tableData[index]);
 				if(row.state == 1)
 					return;
             	var _this = this;
                 //const item = this.tableData[index];
 				var ansNum = row.question__ansNum;
-				console.log(ansNum);
+				//console.log(ansNum);
 				var qform = {};
 				if(row.state == 0 || row.state == 2)
 					ansNum += 1;
@@ -192,7 +192,7 @@
 						_this.tableData[index].state = 1;
 						_this.tableData[index].stateName = '通过';
 		                _this.editVisible = false;
-						console.log('change answer state -> 1');
+						//console.log('change answer state -> 1');
 						qform = {
 							qId: row.qId,
 							ansNum: ansNum
@@ -204,20 +204,20 @@
 		        		        //_this.$set(_this.tableData, _this.idx, _this.form);
 								_this.tableData[index].question__ansNum = ansNum;
 		        		        _this.$message.success('修改成功');
-								console.log('change question ansNum -> ' + ansNum);
+								//console.log('change question ansNum -> ' + ansNum);
                 		    }
                 		})
                     }
                 });
             },
             handleUnpass(index, row) {
-				console.log(row);
-				console.log(this.tableData[index]);
+				//console.log(row);
+				//console.log(this.tableData[index]);
 				if(row.state == 2)
 					return;
             	var _this = this;
 				var ansNum = row.question__ansNum;
-				console.log(ansNum);
+				//console.log(ansNum);
 				var qform = {};
 				if(row.state == 1)
 					ansNum -= 1;
