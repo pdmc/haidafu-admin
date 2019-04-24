@@ -176,9 +176,11 @@
             },
             handlePass(index, row) {
             	var _this = this;
-                //const item = this.tableData[index];
+                const item = this.tableData[index];
+				var ansNum = item.ansNum + 1;
                 this.form = {
                 	qId: row.qId,
+					ansNum: ansNum,
                     state: 1
 				};
             	this.$axios.get('/question/update', {
