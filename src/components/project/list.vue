@@ -13,18 +13,24 @@
             <el-table :data="data" border class="table" ref="multipleTable" @selection-change="handleSelectionChange">
                 <el-table-column prop="pName" label="名称" sortable width="150">
                 </el-table-column>
-                <el-table-column prop="thumbnail" label="缩略图" width="100">
+                <el-table-column prop="thumbnail" label="缩略图" width="80">
 				    <template slot-scope="scope">
 				        <img  :src="scope.row.thumbnail" alt="" style="width: 50px;height: 50px">
 				    </template>
                 </el-table-column>
-                <el-table-column prop="statusN" label="状态" width="100">
+                <el-table-column prop="area__countryId__name" label="国家" width="80">
                 </el-table-column>
-                <el-table-column prop="totalSquare" label="总面积" width="100">
+                <el-table-column prop="area__cityId__name" label="城市" width="80">
                 </el-table-column>
-                <el-table-column prop="totalAmount" label="总户数" width="100">
+                <el-table-column prop="statusN" label="状态" width="80">
                 </el-table-column>
-                <el-table-column prop="selectedN" label="是否精选" width="100">
+                <el-table-column prop="totalSquare" label="总面积" width="80">
+                </el-table-column>
+                <el-table-column prop="totalAmount" label="总户数" width="80">
+                </el-table-column>
+                <el-table-column prop="selectedN" label="是否精选" width="80">
+                </el-table-column>
+                <el-table-column prop="pkprovider__spName" label="提供商" width="80">
                 </el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
