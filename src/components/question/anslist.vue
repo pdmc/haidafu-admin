@@ -200,7 +200,7 @@
                 		}).then((res) => {
                 			if(res.status == 200 && res.data.code == 0){
 		        		        //_this.$set(_this.tableData, _this.idx, _this.form);
-								_this.tableData[index].ansNum = ansNum;
+								_this.tableData[index].question__ansNum = ansNum;
 		        		        _this.$message.success('修改成功');
                 		    }
                 		})
@@ -236,7 +236,7 @@
                 		}).then((res) => {
                 			if(res.status == 200 && res.data.code == 0){
 		        		        //_this.$set(_this.tableData, _this.idx, _this.form);
-								_this.tableData[index].ansNum = ansNum;
+								_this.tableData[index].question__ansNum = ansNum;
 		        		        _this.$message.success('修改成功');
                 		    }
                 		})
