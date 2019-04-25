@@ -187,7 +187,7 @@
             // 确定删除
             deleteRow(){
             	this.$axios.get('/projects/delete', {
-                    params: { spId: this.dbid }
+                    params: { pId: this.dbid }
                 }).then((res) => {
                 	if(res.status == 200 && res.data.code == 0){
                 		this.tableData.splice(this.idx, 1);

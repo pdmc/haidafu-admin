@@ -218,14 +218,16 @@
             onSubmit() {
             	var _this = this;
                 //this.$message.success('提交成功！');
-                this.$axios.get('/projects/add', {
+                this.$axios.get('/projects/addifnotexist', {
 				    params: this.form
 				})
 				.then(function (res) {
 				    //console.log(res);
 				    if(res.status == 200 && res.data && res.data.code == 0){
 				    	_this.$message.success('提交成功！');
-				    	_this.$router.push({path: '/projectlist'});
+						setTimeout(function() {
+				    		_this.$router.push({path: '/projectlist'});
+						}, 2000);
 				    }
 				})
 				.catch(function (error) {
